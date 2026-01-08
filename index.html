@@ -9,100 +9,74 @@
     
     <style>
         :root {
-            --bg-color: #3a4a3b; /* Xanh rêu đậm */
-            --gold-color: #c5a059; /* Vàng đồng */
+            --bg-color: #3a4a3b;
+            --gold-color: #c5a059;
             --light-text: #f4f4f4;
             --input-bg: #2d3b2e;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             background-color: var(--bg-color);
             color: var(--light-text);
             font-family: 'Quicksand', sans-serif;
             overflow-x: hidden;
-            position: relative; /* Để chứa các hiệu ứng tuyệt đối */
+            position: relative;
         }
 
-        /* --- Heart Animation Effect --- */
+        /* --- Heart Animation --- */
         .heart-effect {
             position: fixed;
             bottom: -50px;
-            color: rgba(197, 160, 89, 0.6); /* Màu vàng đồng mờ */
+            color: rgba(197, 160, 89, 0.6);
             font-size: 20px;
-            z-index: 999; /* Nằm trên nền nhưng dưới các nút bấm quan trọng */
-            pointer-events: none; /* Không chặn click chuột của người dùng */
+            z-index: 999;
+            pointer-events: none;
             animation: floatUp linear forwards;
         }
 
         @keyframes floatUp {
-            0% {
-                transform: translateY(0) scale(1) rotate(0deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 0.8;
-            }
-            100% {
-                transform: translateY(-110vh) scale(1.5) rotate(360deg);
-                opacity: 0;
-            }
+            0% { transform: translateY(0) scale(1) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.8; }
+            100% { transform: translateY(-110vh) scale(1.5) rotate(360deg); opacity: 0; }
         }
 
         /* --- Music Button --- */
         .music-btn {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
+            bottom: 20px; right: 20px;
+            width: 50px; height: 50px;
             background: var(--gold-color);
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            z-index: 1000; cursor: pointer;
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-            border: 2px solid #fff;
-            color: #fff;
+            border: 2px solid #fff; color: #fff;
         }
-        
         .music-btn.playing {
             animation: pulse 2s infinite;
-            background: #fff;
-            color: var(--gold-color);
+            background: #fff; color: var(--gold-color);
             border-color: var(--gold-color);
         }
-
         @keyframes pulse {
             0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
             70% { box-shadow: 0 0 0 15px rgba(255, 255, 255, 0); }
             100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
         }
 
-        /* --- Main Invitation Images --- */
+        /* --- Main Layout --- */
         .invitation-container {
             max-width: 600px;
             margin: 0 auto;
             background: var(--bg-color);
             box-shadow: 0 0 20px rgba(0,0,0,0.5);
             position: relative;
-            z-index: 2; /* Nổi lên trên hiệu ứng tim */
+            z-index: 2;
         }
 
-        .invitation-page {
-            width: 100%;
-            display: block;
-            height: auto;
-        }
+        .invitation-page { width: 100%; display: block; height: auto; }
 
-        /* --- Online Features Section --- */
         .online-features {
             padding: 40px 20px;
             background: var(--bg-color);
@@ -119,7 +93,7 @@
             letter-spacing: 2px;
         }
 
-        /* --- Map Style --- */
+        /* --- Map & Form --- */
         .map-wrapper {
             border: 2px solid var(--gold-color);
             border-radius: 8px;
@@ -127,97 +101,56 @@
             margin-bottom: 30px;
             position: relative;
         }
-        
-        .map-btn {
+        .map-btn, .calendar-btn {
             display: inline-block;
-            margin-top: 10px;
             color: var(--gold-color);
             text-decoration: none;
-            border-bottom: 1px solid var(--gold-color);
-            padding-bottom: 2px;
+            border: 1px solid var(--gold-color);
+            padding: 10px 20px;
+            border-radius: 30px;
+            margin-top: 15px;
+            transition: 0.3s;
         }
+        .map-btn:hover, .calendar-btn:hover { background: var(--gold-color); color: #333; }
 
-        /* --- RSVP Form Style --- */
         .rsvp-container {
             background: rgba(255, 255, 255, 0.05);
             padding: 30px;
             border-radius: 10px;
             border: 1px solid var(--gold-color);
         }
-
-        .form-group {
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: var(--gold-color);
-            font-weight: 600;
-        }
-
+        .form-group { margin-bottom: 20px; text-align: left; }
+        .form-group label { display: block; margin-bottom: 8px; color: var(--gold-color); font-weight: 600; }
         .form-input {
-            width: 100%;
-            padding: 12px;
+            width: 100%; padding: 12px;
             background: var(--input-bg);
             border: 1px solid #555;
             border-radius: 4px;
             color: var(--light-text);
             font-family: inherit;
         }
-        
-        .form-input:focus {
-            outline: none;
-            border-color: var(--gold-color);
-        }
-
+        .form-input:focus { outline: none; border-color: var(--gold-color); }
         .submit-btn {
-            background: var(--gold-color);
-            color: #333;
-            border: none;
-            padding: 15px 40px;
-            font-size: 1.1rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            cursor: pointer;
-            border-radius: 50px;
-            transition: all 0.3s;
-            width: 100%;
+            background: var(--gold-color); color: #333;
+            border: none; padding: 15px 40px;
+            font-size: 1.1rem; font-weight: bold;
+            text-transform: uppercase; letter-spacing: 1px;
+            cursor: pointer; border-radius: 50px;
+            transition: all 0.3s; width: 100%;
         }
+        .submit-btn:hover { background: #fff; transform: translateY(-2px); }
 
-        .submit-btn:hover {
-            background: #fff;
-            transform: translateY(-2px);
+        /* --- Confirmation Message (Hidden by default) --- */
+        #rsvp-confirmed-message {
+            display: none; /* Mặc định ẩn */
+            background: rgba(197, 160, 89, 0.1);
+            padding: 30px;
+            border-radius: 10px;
+            border: 2px solid var(--gold-color);
         }
+        .confirmed-icon { font-size: 3rem; color: var(--gold-color); margin-bottom: 15px; }
 
-        /* --- Calendar Button --- */
-        .calendar-btn {
-            display: inline-block;
-            margin-top: 30px;
-            padding: 10px 20px;
-            border: 1px solid var(--gold-color);
-            color: var(--gold-color);
-            text-decoration: none;
-            border-radius: 30px;
-            font-size: 0.9rem;
-            transition: 0.3s;
-        }
-        
-        .calendar-btn:hover {
-            background: var(--gold-color);
-            color: #333;
-        }
-
-        /* --- Footer --- */
-        footer {
-            text-align: center;
-            padding: 30px 0;
-            font-size: 0.8rem;
-            opacity: 0.6;
-        }
-
+        footer { text-align: center; padding: 30px 0; font-size: 0.8rem; opacity: 0.6; }
     </style>
 </head>
 <body>
@@ -225,49 +158,38 @@
     <audio id="bgMusic" loop>
         <source src="https://cdn.pixabay.com/download/audio/2022/02/10/audio_fc8c857778.mp3?filename=piano-moment-14360.mp3" type="audio/mpeg">
     </audio>
-    
-    <div class="music-btn" id="musicBtn" title="Bật/Tắt nhạc">
-        <i class="fas fa-music"></i>
-    </div>
+    <div class="music-btn" id="musicBtn" title="Bật/Tắt nhạc"><i class="fas fa-music"></i></div>
 
     <div class="invitation-container">
-        <img src="p1.jpg" alt="Trang 1" class="invitation-page" onerror="this.src='https://via.placeholder.com/600x800/3a4a3b/c5a059?text=Bia+Thiep+(p1.jpg)'">
-        <img src="p2.jpg" alt="Trang 2" class="invitation-page" onerror="this.src='https://via.placeholder.com/600x800/3a4a3b/c5a059?text=Intro+(p2.jpg)'">
-        <img src="p3.jpg" alt="Trang 3" class="invitation-page" onerror="this.src='https://via.placeholder.com/600x800/3a4a3b/c5a059?text=Ten+CDCR+(p3.jpg)'">
-        <img src="p4.jpg" alt="Trang 4" class="invitation-page" onerror="this.src='https://via.placeholder.com/600x800/3a4a3b/c5a059?text=Anh+Cuoi+(p4.jpg)'">
-        <img src="p5.jpg" alt="Trang 5" class="invitation-page" onerror="this.src='https://via.placeholder.com/600x800/3a4a3b/c5a059?text=Thong+Tin+(p5.jpg)'">
+        <img src="p1.jpg" class="invitation-page" alt="Page 1" onerror="this.src='https://via.placeholder.com/600x800/3a4a3b/c5a059?text=Trang+1'">
+        <img src="p2.jpg" class="invitation-page" alt="Page 2" onerror="this.src='https://via.placeholder.com/600x800/3a4a3b/c5a059?text=Trang+2'">
+        <img src="p3.jpg" class="invitation-page" alt="Page 3" onerror="this.src='https://via.placeholder.com/600x800/3a4a3b/c5a059?text=Trang+3'">
+        <img src="p4.jpg" class="invitation-page" alt="Page 4" onerror="this.src='https://via.placeholder.com/600x800/3a4a3b/c5a059?text=Trang+4'">
+        <img src="p5.jpg" class="invitation-page" alt="Page 5" onerror="this.src='https://via.placeholder.com/600x800/3a4a3b/c5a059?text=Trang+5'">
         
-        <div class="online-features" id="map-section">
+        <div class="online-features">
             <h2 class="section-title">Đường Đến Hôn Trường</h2>
             <p style="margin-bottom: 15px;">White Palace - 588 Phạm Văn Đồng</p>
-            
             <div class="map-wrapper">
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.9251197825225!2d106.71836331533446!3d10.816041261399224!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175289907106099%3A0xc3b53f6406208578!2sWhite%20Palace%20Pham%20Van%20Dong!5e0!3m2!1sen!2s!4v1642132341234!5m2!1sen!2s" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
             </div>
-            
-            <a href="https://maps.app.goo.gl/whitepalace" target="_blank" class="map-btn">
-                <i class="fas fa-directions"></i> Mở Google Maps chỉ đường
-            </a>
-
+            <a href="https://maps.app.goo.gl/whitepalace" target="_blank" class="map-btn"><i class="fas fa-directions"></i> Chỉ đường</a>
             <br>
-            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Đám+Cưới+Thành+Nhân+%26+Tân+Hoàng&dates=20260124T110000/20260124T140000&details=Tại+White+Palace+Phạm+Văn+Đồng&location=588+Phạm+Văn+Đồng,+Thủ+Đức,+TP.HCM" target="_blank" class="calendar-btn">
-                <i class="far fa-calendar-plus"></i> Thêm vào Lịch
-            </a>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Đám+Cưới+Thành+Nhân+%26+Tân+Hoàng&dates=20260124T110000/20260124T140000&details=Tại+White+Palace+Phạm+Văn+Đồng&location=588+Phạm+Văn+Đồng,+Thủ+Đức,+TP.HCM" target="_blank" class="calendar-btn"><i class="far fa-calendar-plus"></i> Thêm vào Lịch</a>
         </div>
 
-        <img src="p6.jpg" alt="Trang 6" class="invitation-page" onerror="this.src='https://via.placeholder.com/600x800/3a4a3b/c5a059?text=Loi+Dan+(p6.jpg)'">
+        <img src="p6.jpg" class="invitation-page" alt="Page 6" onerror="this.src='https://via.placeholder.com/600x800/3a4a3b/c5a059?text=Trang+6'">
 
         <div class="online-features" id="rsvp-section">
             <h2 class="section-title">Xác Nhận Tham Dự</h2>
-            <p style="margin-bottom: 20px; font-style: italic;">"Sự hiện diện của bạn là mảnh ghép hoàn hảo cho ngày vui của chúng tôi."</p>
             
-            <div class="rsvp-container">
+            <div class="rsvp-container" id="rsvp-form-container">
+                <p style="margin-bottom: 20px; font-style: italic;">"Sự hiện diện của bạn là mảnh ghép hoàn hảo cho ngày vui của chúng tôi."</p>
                 <form id="weddingRsvpForm">
                     <div class="form-group">
                         <label>Tên Khách Mời</label>
                         <input type="text" id="guestName" class="form-input" required placeholder="Nhập tên của bạn...">
                     </div>
-                    
                     <div class="form-group">
                         <label>Tham dự tiệc</label>
                         <select id="attendance" class="form-input" required>
@@ -276,7 +198,6 @@
                             <option value="no">Tiếc quá, mình bận rồi</option>
                         </select>
                     </div>
-
                     <div class="form-group">
                         <label>Số người đi cùng</label>
                         <select id="guestCount" class="form-input">
@@ -285,22 +206,26 @@
                             <option value="2">Thêm 2 người</option>
                         </select>
                     </div>
-
                     <div class="form-group">
                         <label>Lời chúc</label>
                         <textarea id="message" rows="3" class="form-input" placeholder="Gửi lời chúc mừng..."></textarea>
                     </div>
-
                     <button type="submit" class="submit-btn">Gửi Xác Nhận</button>
                 </form>
             </div>
+
+            <div id="rsvp-confirmed-message">
+                <div class="confirmed-icon"><i class="fas fa-check-circle"></i></div>
+                <h3 style="color: var(--gold-color); margin-bottom: 10px;">Cảm ơn <span id="savedName"></span>!</h3>
+                <p>Chúng tôi đã nhận được xác nhận của bạn.</p>
+                <p style="margin-top: 10px; font-style: italic;">Hẹn gặp bạn vào ngày 24/01/2026!</p>
+                <button onclick="resetRSVP()" style="margin-top: 20px; background: transparent; border: 1px solid #666; color: #999; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 0.8rem;">Gửi lại thông tin khác</button>
+            </div>
         </div>
 
-        <img src="p7.jpg" alt="Trang 7" class="invitation-page" onerror="this.src='https://via.placeholder.com/600x800/3a4a3b/c5a059?text=Cam+On+(p7.jpg)'">
+        <img src="p7.jpg" class="invitation-page" alt="Page 7" onerror="this.src='https://via.placeholder.com/600x800/3a4a3b/c5a059?text=Trang+7'">
 
-        <footer>
-            Thành Nhân & Tân Hoàng 24.01.2026
-        </footer>
+        <footer>Thành Nhân & Tân Hoàng 24.01.2026</footer>
     </div>
 
     <script type="module">
@@ -320,7 +245,27 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // --- 1. Xử lý Form RSVP ---
+        // --- CHECK LOCAL STORAGE (Kiểm tra xem khách đã điền chưa) ---
+        const rsvpKey = 'wedding_rsvp_v1_tnth'; // Key lưu trong trình duyệt
+        const savedData = localStorage.getItem(rsvpKey);
+
+        if (savedData) {
+            // Nếu đã có dữ liệu -> Ẩn Form, Hiện thông báo
+            const data = JSON.parse(savedData);
+            document.getElementById('rsvp-form-container').style.display = 'none';
+            document.getElementById('rsvp-confirmed-message').style.display = 'block';
+            document.getElementById('savedName').innerText = data.name;
+        }
+
+        // Hàm Reset để điền lại (cho nút bấm nhỏ)
+        window.resetRSVP = function() {
+            if(confirm('Bạn muốn điền lại thông tin xác nhận?')) {
+                localStorage.removeItem(rsvpKey);
+                location.reload();
+            }
+        }
+
+        // --- XỬ LÝ SUBMIT FORM ---
         document.getElementById('weddingRsvpForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             
@@ -335,6 +280,7 @@
             const message = document.getElementById('message').value;
 
             try {
+                // 1. Gửi lên Firebase
                 await addDoc(collection(db, "wedding_rsvps"), {
                     name: name,
                     attendance: attendance,
@@ -344,18 +290,25 @@
                     created_at: serverTimestamp()
                 });
 
+                // 2. Lưu vào LocalStorage của khách
+                const guestData = { name: name, timestamp: new Date().getTime() };
+                localStorage.setItem(rsvpKey, JSON.stringify(guestData));
+
+                // 3. Hiển thị thành công
                 alert("Cảm ơn bạn! Thông tin đã được gửi thành công.");
-                document.getElementById('weddingRsvpForm').reset();
+                
+                // Reload trang để cập nhật giao diện (ẩn form đi)
+                location.reload();
+
             } catch (error) {
-                console.error("Error adding document: ", error);
+                console.error("Error: ", error);
                 alert("Lỗi kết nối. Vui lòng thử lại!");
-            } finally {
                 submitBtn.innerText = originalText;
                 submitBtn.disabled = false;
             }
         });
 
-        // --- 2. Xử lý Nhạc & Hiệu ứng ---
+        // --- NHẠC & HIỆU ỨNG (Giữ nguyên như cũ) ---
         const musicBtn = document.getElementById('musicBtn');
         const bgMusic = document.getElementById('bgMusic');
         let isPlaying = false;
@@ -369,54 +322,28 @@
                 bgMusic.play().then(() => {
                     musicBtn.classList.add('playing');
                     musicBtn.innerHTML = '<i class="fas fa-pause"></i>';
-                }).catch(e => console.log("Chưa thể tự động phát nhạc: " + e));
+                }).catch(e => console.log("Autoplay blocked"));
             }
             isPlaying = !isPlaying;
         }
-
         musicBtn.addEventListener('click', toggleMusic);
+        document.body.addEventListener('click', function() { if(!isPlaying) toggleMusic(); }, { once: true });
 
-        // Thử tự động phát khi người dùng tương tác lần đầu
-        document.body.addEventListener('click', function() {
-            if (!isPlaying) {
-                toggleMusic();
-            }
-        }, { once: true });
-
-        // --- 3. Tạo hiệu ứng Tim Bay (Flying Hearts) ---
+        // Hiệu ứng tim bay
         function createHeart() {
             const heart = document.createElement('div');
             heart.classList.add('heart-effect');
-            
-            // Random icon (Tim đặc hoặc Tim rỗng)
             const icons = ['fas fa-heart', 'far fa-heart'];
-            const randomIcon = icons[Math.floor(Math.random() * icons.length)];
-            heart.innerHTML = `<i class="${randomIcon}"></i>`;
-            
-            // Vị trí ngẫu nhiên theo chiều ngang (tránh che khu vực giữa quá nhiều)
-            // Chúng ta ưu tiên tim bay ở 2 bên lề
-            let leftPos = Math.random() * 100; 
-            heart.style.left = leftPos + 'vw';
-            
-            // Kích thước ngẫu nhiên
-            const size = Math.random() * 20 + 10; // 10px - 30px
+            heart.innerHTML = `<i class="${icons[Math.floor(Math.random() * icons.length)]}"></i>`;
+            heart.style.left = Math.random() * 100 + 'vw';
+            const size = Math.random() * 20 + 10;
             heart.style.fontSize = size + 'px';
-            
-            // Thời gian bay ngẫu nhiên
-            const duration = Math.random() * 3 + 4; // 4s - 7s
+            const duration = Math.random() * 3 + 4;
             heart.style.animationDuration = duration + 's';
-            
             document.body.appendChild(heart);
-            
-            // Xóa element sau khi bay xong
-            setTimeout(() => {
-                heart.remove();
-            }, duration * 1000);
+            setTimeout(() => { heart.remove(); }, duration * 1000);
         }
-
-        // Tạo tim mỗi 400ms
         setInterval(createHeart, 400);
-
     </script>
 </body>
 </html>
