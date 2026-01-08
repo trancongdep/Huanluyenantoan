@@ -3,20 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thành Nhân & Tân Hoàng - Wedding Invitation</title>
+    <title>Thành Nhân & Tân Hoàng | Wedding Invitation</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
         :root {
-            /* Lấy cảm hứng từ file PDF: Xanh rêu đậm và Vàng đồng */
-            --primary-color: #3a4a3b; /* Deep Green from PDF background */
-            --accent-color: #c5a059; /* Gold/Bronze from text */
-            --text-color: #333333;
-            --light-bg: #f4f4f4;
-            --white: #ffffff;
-            --font-main: 'Quicksand', sans-serif;
-            --font-serif: 'Playfair Display', serif; /* Font có chân sang trọng hơn cho tiêu đề */
+            /* Màu chủ đạo lấy từ file thiết kế */
+            --bg-color: #3a4a3b; /* Xanh rêu đậm */
+            --gold-color: #c5a059; /* Vàng đồng */
+            --light-text: #f4f4f4;
+            --input-bg: #2d3b2e;
         }
 
         * {
@@ -26,466 +23,251 @@
         }
 
         body {
-            font-family: var(--font-main);
-            color: var(--text-color);
-            background-color: var(--light-bg);
-            line-height: 1.6;
+            background-color: var(--bg-color);
+            color: var(--light-text);
+            font-family: 'Quicksand', sans-serif;
+            overflow-x: hidden;
         }
 
-        /* --- Utilities --- */
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        .section-title {
-            font-family: var(--font-serif);
-            font-size: 3rem;
-            text-align: center;
-            color: var(--primary-color);
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
-
-        .sub-title {
-            text-align: center;
-            font-size: 1.2rem;
-            color: var(--accent-color);
-            margin-bottom: 40px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 12px 30px;
-            background: var(--primary-color);
-            color: var(--white);
-            border: 1px solid var(--primary-color);
-            border-radius: 4px; /* Bo góc ít hơn để sang trọng hơn */
+        /* --- Music Button --- */
+        .music-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: var(--gold-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
             cursor: pointer;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            border: 2px solid #fff;
+            animation: spin 4s linear infinite;
+            animation-play-state: paused;
+        }
+        
+        .music-btn.playing {
+            animation-play-state: running;
         }
 
-        .btn:hover {
-            background: transparent;
-            color: var(--primary-color);
-        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        /* --- Header / Hero --- */
-        header {
-            height: 100vh;
-            /* Bạn hãy cắt ảnh ở Trang 6 (cô dâu chú rể khiêu vũ) để làm nền nhé */
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://via.placeholder.com/1920x1080?text=Anh+Nen+Trang+6+PDF');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: var(--white);
-            position: relative;
-        }
-
-        .hero-content h1 {
-            font-family: var(--font-serif);
-            font-size: 4.5rem;
-            margin-bottom: 10px;
-            color: var(--white);
-        }
-
-        .hero-content p {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-        }
-
-        .hero-date {
-            font-size: 1.8rem;
-            border-top: 1px solid var(--white);
-            border-bottom: 1px solid var(--white);
-            display: inline-block;
-            padding: 15px 30px;
-            margin-top: 20px;
-            font-family: var(--font-serif);
-        }
-
-        /* --- Intro Quote --- */
-        #intro {
-            padding: 60px 0;
-            text-align: center;
-            background: var(--white);
-        }
-        #intro p {
-            font-size: 1.4rem;
-            font-style: italic;
-            font-family: var(--font-serif);
-            color: var(--primary-color);
-            max-width: 700px;
+        /* --- Main Invitation Images --- */
+        .invitation-container {
+            max-width: 600px; /* Chiều rộng tối ưu cho hiển thị dạng dọc */
             margin: 0 auto;
+            background: var(--bg-color);
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
         }
 
-        /* --- Family Section --- */
-        #family {
-            padding: 60px 0;
-            background-color: #f9f9f9;
+        .invitation-page {
+            width: 100%;
+            display: block; /* Loại bỏ khoảng trắng dưới ảnh */
+            height: auto;
+        }
+
+        /* --- Online Features Section --- */
+        .online-features {
+            padding: 40px 20px;
+            background: var(--bg-color);
             text-align: center;
+            border-top: 2px solid var(--gold-color);
         }
 
-        .family-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 50px;
-            margin-top: 30px;
-        }
-
-        .family-side h3 {
-            color: var(--accent-color);
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            font-family: var(--font-serif);
-        }
-
-        .parent-name {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: var(--primary-color);
-            margin-bottom: 5px;
-        }
-
-        .address {
-            font-size: 0.9rem;
-            color: #666;
-            font-style: italic;
-        }
-
-        /* --- Couple Section --- */
-        #couple {
-            padding: 80px 0;
-            text-align: center;
-            background: var(--white);
-        }
-
-        .couple-wrapper {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            gap: 60px;
-            margin-top: 40px;
-        }
-
-        .person {
-            flex: 1;
-            min-width: 300px;
-            max-width: 400px;
-        }
-
-        /* Ảnh tròn hoặc vuông bo góc tùy sở thích, ở đây để chữ nhật bo góc theo style hiện đại */
-        .person img {
-            width: 100%; 
-            height: 400px;
-            object-fit: cover;
-            border-radius: 10px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold-color);
+            font-size: 2rem;
             margin-bottom: 20px;
-        }
-
-        .person h3 {
-            font-family: var(--font-serif);
-            font-size: 2.2rem;
-            color: var(--primary-color);
-            margin-bottom: 5px;
-        }
-
-        .person p {
-            color: var(--accent-color);
-            font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 2px;
         }
 
-        .couple-divider {
-            font-size: 3rem;
-            color: var(--accent-color);
-            font-family: var(--font-serif);
-        }
-
-        /* --- Event Info & Map --- */
-        #event {
-            background-color: var(--primary-color); /* Nền xanh đậm */
-            color: var(--white);
-            padding: 80px 0;
-            text-align: center;
-        }
-
-        .event-card {
-            background: rgba(255, 255, 255, 0.05); /* Hiệu ứng kính mờ */
-            padding: 40px;
-            border: 1px solid var(--accent-color);
-            border-radius: 4px;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .event-card .section-title {
-            color: var(--accent-color);
-        }
-
-        .event-details {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 30px;
-            margin: 40px 0;
-        }
-
-        .detail-item {
-            flex: 1;
-            min-width: 250px;
-        }
-        
-        .detail-item i {
-            color: var(--accent-color);
-            font-size: 2rem;
-            margin-bottom: 15px;
-        }
-        
-        .detail-item h4 {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .detail-item p {
-            font-size: 1.1rem;
-            color: #ddd;
-        }
-
-        .map-responsive {
-            margin-top: 30px;
+        /* --- Map Style --- */
+        .map-wrapper {
+            border: 2px solid var(--gold-color);
+            border-radius: 8px;
             overflow: hidden;
-            padding-bottom: 50%;
+            margin-bottom: 30px;
             position: relative;
-            height: 0;
-            border: 1px solid var(--accent-color);
         }
         
-        .map-responsive iframe {
-            left: 0;
-            top: 0;
-            height: 100%;
-            width: 100%;
-            position: absolute;
-            border: 0;
+        .map-btn {
+            display: inline-block;
+            margin-top: 10px;
+            color: var(--gold-color);
+            text-decoration: none;
+            border-bottom: 1px solid var(--gold-color);
+            padding-bottom: 2px;
         }
 
-        /* --- RSVP Form --- */
-        #rsvp {
-            padding: 80px 0;
-            background: #fff;
-        }
-
-        .rsvp-form {
-            max-width: 600px;
-            margin: 0 auto;
-            background: #fdfbf7;
-            padding: 40px;
-            border-radius: 4px;
-            border: 2px solid var(--primary-color);
+        /* --- RSVP Form Style --- */
+        .rsvp-container {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 10px;
+            border: 1px solid var(--gold-color);
         }
 
         .form-group {
             margin-bottom: 20px;
+            text-align: left;
         }
 
         .form-group label {
             display: block;
             margin-bottom: 8px;
+            color: var(--gold-color);
             font-weight: 600;
-            color: var(--primary-color);
         }
 
-        .form-group input, 
-        .form-group select, 
-        .form-group textarea {
+        .form-input {
             width: 100%;
             padding: 12px;
-            border: 1px solid #ddd;
+            background: var(--input-bg);
+            border: 1px solid #555;
             border-radius: 4px;
+            color: var(--light-text);
             font-family: inherit;
         }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
+        
+        .form-input:focus {
             outline: none;
-            border-color: var(--primary-color);
+            border-color: var(--gold-color);
+        }
+
+        .submit-btn {
+            background: var(--gold-color);
+            color: #333;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: all 0.3s;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background: #fff;
+            transform: translateY(-2px);
+        }
+
+        /* --- Calendar Button --- */
+        .calendar-btn {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 10px 20px;
+            border: 1px solid var(--gold-color);
+            color: var(--gold-color);
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+        
+        .calendar-btn:hover {
+            background: var(--gold-color);
+            color: #333;
         }
 
         /* --- Footer --- */
         footer {
-            background: var(--text-color);
-            color: var(--white);
             text-align: center;
             padding: 30px 0;
-            font-size: 0.9rem;
+            font-size: 0.8rem;
+            opacity: 0.6;
         }
 
-        /* --- Responsive --- */
-        @media (max-width: 768px) {
-            .hero-content h1 { font-size: 3rem; }
-            .section-title { font-size: 2.2rem; }
-            .couple-wrapper { gap: 30px; }
-            .person img { height: 300px; }
-        }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="hero-content">
-            <p>We Are Getting Married</p>
-            <h1>Thành Nhân <br>&<br> Tân Hoàng</h1>
-            <div class="hero-date">24 . 01 . 2026</div>
-            <br><br>
-            <a href="#rsvp" class="btn">Gửi lời chúc & Xác nhận</a>
-        </div>
-    </header>
+    <div class="music-btn" id="musicBtn" title="Bật/Tắt nhạc">
+        <i class="fas fa-music"></i>
+    </div>
+    <audio id="bgMusic" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
 
-    <section id="intro">
-        <div class="container">
-            <p>“Chúng ta cảm ơn quá khứ, chúng ta trân trọng hiện tại và sẽ cùng nhau viết tiếp tương lai. <br>
-            Với tất cả lòng biết ơn, chúng mình bắt đầu một chương mới là vợ chồng, là gia đình và là NHÀ.”</p>
-            <div style="margin-top: 20px; font-weight: bold; color: var(--accent-color);">#YeuDuLonDeThanhNha</div>
-        </div>
-    </section>
-
-    <section id="family">
-        <div class="container">
-            <h2 class="section-title">Gia Đình Hai Bên</h2>
-            <div class="sub-title">Trân trọng báo tin lễ tân hôn của con chúng tôi</div>
+    <div class="invitation-container">
+        <img src="p1.jpg" alt="Trang 1" class="invitation-page" onerror="this.src='https://via.placeholder.com/600x800/3a4a3b/c5a059?text=Anh+Trang+1+(Bia)'">
+        <img src="p2.jpg" alt="Trang 2" class="invitation-page" onerror="this.src='https://via.placeholder.com/600x800/3a4a3b/c5a059?text=Anh+Trang+2+(Intro)'">
+        <img src="p3.jpg" alt="Trang 3" class="invitation-page" onerror="this.src='https://via.placeholder.com/600x800/3a4a3b/c5a059?text=Anh+Trang+3+(Ten+CDCR)'">
+        <img src="p4.jpg" alt="Trang 4" class="invitation-page" onerror="this.src='https://via.placeholder.com/600x800/3a4a3b/c5a059?text=Anh+Trang+4+(Hinh+Cuoi)'">
+        <img src="p5.jpg" alt="Trang 5" class="invitation-page" onerror="this.src='https://via.placeholder.com/600x800/3a4a3b/c5a059?text=Anh+Trang+5+(Thong+Tin)'">
+        
+        <div class="online-features" id="map-section">
+            <h2 class="section-title">Đường Đến Hôn Trường</h2>
+            <p style="margin-bottom: 15px;">White Palace - 588 Phạm Văn Đồng</p>
             
-            <div class="family-grid">
-                <div class="family-side">
-                    <h3>Nhà Trai</h3>
-                    <div class="parent-name">Ông Kim Văn Phúc</div>
-                    <div class="parent-name">Bà Nguyễn Phạm Vy Thuỷ</div>
-                    <div class="address">Cư Xá Thanh Đa, TP. Hồ Chí Minh</div>
-                </div>
-
-                <div class="family-side">
-                    <h3>Nhà Gái</h3>
-                    <div class="parent-name">Ông Trần Quốc Hùng</div>
-                    <div class="parent-name">Bà Trịnh Thị Liên</div>
-                    <div class="address">Phường Long Hưng, TP. Biên Hoà, Đồng Nai</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="couple">
-        <div class="container">
-            <h2 class="section-title">Cô Dâu & Chú Rể</h2>
-            <p style="text-align: center;">"Từ trái tim này đến trái tim kia"</p>
-            
-            <div class="couple-wrapper">
-                <div class="person">
-                    <img src="https://via.placeholder.com/400x500?text=Anh+Chu+Re+(Trang+4)" alt="Thành Nhân">
-                    <h3>Thành Nhân</h3>
-                    <p>Chú Rể</p>
-                </div>
-                
-                <div class="couple-divider">&</div>
-
-                <div class="person">
-                    <img src="https://via.placeholder.com/400x500?text=Anh+Co+Dau+(Trang+4)" alt="Tân Hoàng">
-                    <h3>Tân Hoàng</h3>
-                    <p>Cô Dâu</p>
-                </div>
+            <div class="map-wrapper">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.9251197825225!2d106.71836331533446!3d10.816041261399224!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175289907106099%3A0xc3b53f6406208578!2sWhite%20Palace%20Pham%20Van%20Dong!5e0!3m2!1sen!2s!4v1642132341234!5m2!1sen!2s" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
             </div>
             
-            <div style="margin-top: 50px; text-align: center;">
-                 <img src="https://via.placeholder.com/800x400?text=Anh+Cap+Doi+Ao+Dai+Do+(Trang+5)" style="max-width: 100%; border-radius: 10px;" alt="Happy Couple">
-            </div>
+            <a href="https://maps.app.goo.gl/whitepalace" target="_blank" class="map-btn">
+                <i class="fas fa-directions"></i> Mở Google Maps chỉ đường
+            </a>
+
+            <br>
+            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Đám+Cưới+Thành+Nhân+%26+Tân+Hoàng&dates=20260124T110000/20260124T140000&details=Tại+White+Palace+Phạm+Văn+Đồng&location=588+Phạm+Văn+Đồng,+Thủ+Đức,+TP.HCM" target="_blank" class="calendar-btn">
+                <i class="far fa-calendar-plus"></i> Thêm vào Lịch
+            </a>
         </div>
-    </section>
 
-    <section id="event">
-        <div class="container">
-            <div class="event-card">
-                <h2 class="section-title">Tiệc Cưới</h2>
-                <div class="sub-title">Trân trọng kính mời quý khách đến chung vui</div>
-                
-                <div class="event-details">
-                    <div class="detail-item">
-                        <i class="far fa-clock"></i>
-                        <h4>Thời gian</h4>
-                        <p><strong>11:00 AM</strong></p>
-                        <p>Thứ Bảy, 24/01/2026</p>
-                        <p>(Nhằm ngày 06 tháng Chạp năm Ất Tỵ)</p>
-                    </div>
+        <img src="p6.jpg" alt="Trang 6" class="invitation-page" onerror="this.src='https://via.placeholder.com/600x800/3a4a3b/c5a059?text=Anh+Trang+6+(Loi+Dan)'">
 
-                    <div class="detail-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <h4>Địa điểm</h4>
-                        <p><strong>WHITE PALACE</strong></p>
-                        <p>Sảnh A4</p>
-                        <p>588 Phạm Văn Đồng, Hiệp Bình Chánh, Thủ Đức, TP.HCM</p>
-                    </div>
-                </div>
-                
-                <div class="map-responsive">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.924945868285!2d106.71887331533425!3d10.81705626139828!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175289999999999%3A0x2a1b1b1b1b1b1b1b!2sWhite%20Palace%20Pham%20Van%20Dong!5e0!3m2!1sen!2s!4v1640000000000!5m2!1sen!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="rsvp">
-        <div class="container">
-            <h2 class="section-title">Sổ Lưu Bút Online</h2>
-            <p style="text-align: center; margin-bottom: 30px;">Sự hiện diện của Quý vị là niềm vinh hạnh cho gia đình chúng tôi.</p>
+        <div class="online-features" id="rsvp-section">
+            <h2 class="section-title">Xác Nhận Tham Dự</h2>
+            <p style="margin-bottom: 20px; font-style: italic;">"Sự hiện diện của bạn là mảnh ghép hoàn hảo cho ngày vui của chúng tôi."</p>
             
-            <div class="rsvp-form">
+            <div class="rsvp-container">
                 <form id="weddingRsvpForm">
                     <div class="form-group">
-                        <label>Tên của bạn</label>
-                        <input type="text" id="guestName" required placeholder="Nhập tên của bạn...">
+                        <label>Tên Khách Mời</label>
+                        <input type="text" id="guestName" class="form-input" required placeholder="Nhập tên của bạn...">
                     </div>
                     
                     <div class="form-group">
-                        <label>Bạn sẽ tham dự chứ?</label>
-                        <select id="attendance" required>
-                            <option value="yes">Chắc chắn tham dự</option>
-                            <option value="maybe">Tôi sẽ trả lời sau</option>
-                            <option value="no">Rất tiếc, tôi bận mất rồi</option>
+                        <label>Tham dự tiệc</label>
+                        <select id="attendance" class="form-input" required>
+                            <option value="yes">Chắc chắn sẽ đến!</option>
+                            <option value="maybe">Sẽ báo lại sau</option>
+                            <option value="no">Tiếc quá, mình bận rồi</option>
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label>Lời chúc đến Thành Nhân & Tân Hoàng</label>
-                        <textarea id="message" rows="4" placeholder="Gửi những lời chúc tốt đẹp nhất..."></textarea>
+                        <label>Số người đi cùng</label>
+                        <select id="guestCount" class="form-input">
+                            <option value="0">Đi một mình</option>
+                            <option value="1">Thêm 1 người</option>
+                            <option value="2">Thêm 2 người</option>
+                        </select>
                     </div>
 
-                    <button type="submit" class="btn" style="width: 100%;">Gửi xác nhận</button>
+                    <div class="form-group">
+                        <label>Lời chúc</label>
+                        <textarea id="message" rows="3" class="form-input" placeholder="Gửi lời chúc mừng..."></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Gửi Xác Nhận</button>
                 </form>
             </div>
         </div>
-    </section>
 
-    <footer>
-        <p>Made with <i class="fas fa-heart" style="color: #c5a059;"></i> | Thành Nhân & Tân Hoàng 2026</p>
-    </footer>
+        <img src="p7.jpg" alt="Trang 7" class="invitation-page" onerror="this.src='https://via.placeholder.com/600x800/3a4a3b/c5a059?text=Anh+Trang+7+(Loi+Cam+On)'">
+
+        <footer>
+            Thành Nhân & Tân Hoàng 24.01.2026
+        </footer>
+    </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
@@ -504,37 +286,66 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
+        // Xử lý Form
         document.getElementById('weddingRsvpForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             
             const submitBtn = e.target.querySelector('button');
-            const originalBtnText = submitBtn.innerText;
+            const originalText = submitBtn.innerText;
             submitBtn.innerText = 'Đang gửi...';
             submitBtn.disabled = true;
 
             const name = document.getElementById('guestName').value;
             const attendance = document.getElementById('attendance').value;
+            const guestCount = document.getElementById('guestCount').value;
             const message = document.getElementById('message').value;
 
             try {
                 await addDoc(collection(db, "wedding_rsvps"), {
                     name: name,
                     attendance: attendance,
+                    plus_one: parseInt(guestCount),
                     message: message,
-                    wedding_of: "ThanhNhan_TanHoang", // Phân biệt nếu bạn dùng chung database cho việc khác
+                    wedding_of: "ThanhNhan_TanHoang",
                     created_at: serverTimestamp()
                 });
 
-                alert("Cảm ơn bạn! Lời chúc của bạn đã được gửi đến cô dâu chú rể.");
+                alert("Cảm ơn bạn! Thông tin đã được gửi thành công.");
                 document.getElementById('weddingRsvpForm').reset();
             } catch (error) {
                 console.error("Error adding document: ", error);
-                alert("Có lỗi xảy ra, vui lòng thử lại sau.");
+                alert("Lỗi kết nối. Vui lòng thử lại!");
             } finally {
-                submitBtn.innerText = originalBtnText;
+                submitBtn.innerText = originalText;
                 submitBtn.disabled = false;
             }
         });
+
+        // Xử lý Nhạc nền
+        const musicBtn = document.getElementById('musicBtn');
+        const bgMusic = document.getElementById('bgMusic');
+        let isPlaying = false;
+
+        musicBtn.addEventListener('click', () => {
+            if (isPlaying) {
+                bgMusic.pause();
+                musicBtn.classList.remove('playing');
+                musicBtn.innerHTML = '<i class="fas fa-music"></i>';
+            } else {
+                bgMusic.play();
+                musicBtn.classList.add('playing');
+                musicBtn.innerHTML = '<i class="fas fa-pause"></i>';
+            }
+            isPlaying = !isPlaying;
+        });
+        
+        // Tự động nhắc bật nhạc khi người dùng tương tác lần đầu với trang (do chính sách trình duyệt)
+        document.body.addEventListener('click', function() {
+            if(!isPlaying) {
+                // Có thể bỏ comment dòng dưới nếu muốn tự động chơi nhạc khi chạm vào màn hình
+                // bgMusic.play(); isPlaying = true; musicBtn.classList.add('playing');
+            }
+        }, { once: true });
     </script>
 </body>
 </html>
