@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Khách Mời | Thành Nhân & Tân Hoàng</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #3a4a3b;
+            --gold: #c5a059;
+            --light: #f4f4f4;
+            --danger: #e74c3c;
+            --success: #27ae60;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* --- Login Screen --- */
+        #login-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--primary);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+        .login-box {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        .login-box input {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 10px;
+            width: 200px;
+        }
+        .login-box button {
+            padding: 10px 20px;
+            background: var(--gold);
+            border: none;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* --- Dashboard --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        h1 { color: var(--primary); margin: 0; font-size: 1.5rem; }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--gold);
+        }
+
+        .stat-card h3 { margin: 0 0 10px 0; color: #666; font-size: 0.9rem; text-transform: uppercase; }
+        .stat-card .number { font-size: 2rem; font-weight: bold; color: var(--primary); }
+
+        /* --- Table --- */
+        .table-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background-color: var(--primary);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:hover { background-color: #f9f9f9; }
+
+        .badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+        .badge-yes { background: #d4edda; color: #155724; }
+        .badge-no { background: #f8d7da; color: #721c24; }
+        .badge-maybe { background: #fff3cd; color: #856404; }
+
+        .refresh-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="login-screen">
+        <div class="login-box">
+            <h3 style="color: var(--primary);">Đăng nhập Admin</h3>
+            <input type="password" id="passwordInput" placeholder="Nhập mật khẩu...">
+            <br>
+            <button onclick="checkPassword()">Vào Trang Quản Trị</button>
+            <p id="loginError" style="color: red; font-size: 0.8rem; display: none; margin-top: 10px;">Mật khẩu không đúng!</p>
+        </div>
+    </div>
+
+    <div id="main-content" style="display: none;">
+        <header>
+            <div>
+                <h1>Dashboard Đám Cưới</h1>
+                <p>Thành Nhân & Tân Hoàng</p>
+            </div>
+            <button class="refresh-btn" onclick="location.reload()"><i class="fas fa-sync"></i> Làm mới</button>
+        </header>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h3>Tổng Lượt Phản Hồi</h3>
+                <div class="number" id="total-responses">0</div>
+            </div>
+            <div class="stat-card" style="border-color: var(--success);">
+                <h3>Số Khách Chắc Chắn Đến</h3>
+                <div class="number" id="total-yes">0</div>
+            </div>
+            <div class="stat-card" style="border-color: #3498db;">
+                <h3>Tổng Người (Kèm người thân)</h3>
+                <div class="number" id="total-guests">0</div>
+            </div>
+            <div class="stat-card" style="border-color: var(--danger);">
+                <h3>Không Tham Dự</h3>
+                <div class="number" id="total-no">0</div>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <h2 style="margin-bottom: 20px; color: var(--primary);">Danh sách chi tiết</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Thời gian</th>
+                        <th>Tên Khách</th>
+                        <th>Trạng Thái</th>
+                        <th>Đi cùng</th>
+                        <th>Lời Chúc</th>
+                    </tr>
+                </thead>
+                <tbody id="guest-table-body">
+                    <tr>
+                        <td colspan="5" style="text-align: center;">Đang tải dữ liệu...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, getDocs, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // Cấu hình Firebase
+        const firebaseConfig = {
+            apiKey: "AIzaSyCzWjfcD5Dgq7V-i2izb9tKLR6QM6qWPQo",
+            authDomain: "tavietnam-78ae8.firebaseapp.com",
+            projectId: "tavietnam-78ae8",
+            storageBucket: "tavietnam-78ae8.firebasestorage.app",
+            messagingSenderId: "670121705534",
+            appId: "1:670121705534:web:1027ad98550573ad37116f"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Hàm kiểm tra mật khẩu đơn giản
+        window.checkPassword = function() {
+            const pass = document.getElementById('passwordInput').value;
+            // Mật khẩu là ngày cưới
+            if(pass === '24012026') {
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('main-content').style.display = 'block';
+                loadData();
+            } else {
+                document.getElementById('loginError').style.display = 'block';
+            }
+        }
+
+        async function loadData() {
+            const tableBody = document.getElementById('guest-table-body');
+            const q = query(collection(db, "wedding_rsvps"), orderBy("created_at", "desc"));
+            
+            try {
+                const querySnapshot = await getDocs(q);
+                
+                let html = '';
+                let countResponses = 0;
+                let countYes = 0;
+                let countNo = 0;
+                let totalPeople = 0; // Tính cả khách + người đi kèm
+
+                querySnapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const date = data.created_at ? new Date(data.created_at.seconds * 1000).toLocaleString('vi-VN') : 'N/A';
+                    
+                    countResponses++;
+                    
+                    let statusBadge = '';
+                    if(data.attendance === 'yes') {
+                        statusBadge = '<span class="badge badge-yes">Tham dự</span>';
+                        countYes++;
+                        totalPeople += (1 + (parseInt(data.plus_one) || 0));
+                    } else if (data.attendance === 'no') {
+                        statusBadge = '<span class="badge badge-no">Vắng mặt</span>';
+                        countNo++;
+                    } else {
+                        statusBadge = '<span class="badge badge-maybe">Chưa chắc</span>';
+                    }
+
+                    html += `
+                        <tr>
+                            <td style="font-size: 0.9rem; color: #666;">${date}</td>
+                            <td style="font-weight: bold;">${data.name}</td>
+                            <td>${statusBadge}</td>
+                            <td>${data.plus_one > 0 ? '+' + data.plus_one : '-'}</td>
+                            <td style="font-style: italic; color: #555;">"${data.message || ''}"</td>
+                        </tr>
+                    `;
+                });
+
+                if(countResponses === 0) {
+                    html = '<tr><td colspan="5" style="text-align: center;">Chưa có dữ liệu nào.</td></tr>';
+                }
+
+                tableBody.innerHTML = html;
+
+                // Cập nhật thống kê
+                document.getElementById('total-responses').innerText = countResponses;
+                document.getElementById('total-yes').innerText = countYes;
+                document.getElementById('total-no').innerText = countNo;
+                document.getElementById('total-guests').innerText = totalPeople;
+
+            } catch (error) {
+                console.error("Error getting documents: ", error);
+                tableBody.innerHTML = `<tr><td colspan="5" style="color: red; text-align: center;">Lỗi tải dữ liệu: ${error.message}</td></tr>`;
+            }
+        }
+    </script>
+</body>
+</html>
