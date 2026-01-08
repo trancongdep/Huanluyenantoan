@@ -3,18 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thiệp Cưới: Chú Rể & Cô Dâu</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Thành Nhân & Tân Hoàng - Wedding Invitation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Quicksand:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
         :root {
-            --primary-color: #d4a373; /* Gold/Brown tone */
-            --secondary-color: #fae1dd; /* Soft Pink */
-            --text-color: #4a4e69;
+            /* Lấy cảm hứng từ file PDF: Xanh rêu đậm và Vàng đồng */
+            --primary-color: #3a4a3b; /* Deep Green from PDF background */
+            --accent-color: #c5a059; /* Gold/Bronze from text */
+            --text-color: #333333;
+            --light-bg: #f4f4f4;
             --white: #ffffff;
             --font-main: 'Quicksand', sans-serif;
-            --font-script: 'Dancing Script', cursive;
+            --font-serif: 'Playfair Display', serif; /* Font có chân sang trọng hơn cho tiêu đề */
         }
 
         * {
@@ -26,7 +28,7 @@
         body {
             font-family: var(--font-main);
             color: var(--text-color);
-            background-color: #fdfbf7;
+            background-color: var(--light-bg);
             line-height: 1.6;
         }
 
@@ -38,11 +40,21 @@
         }
         
         .section-title {
-            font-family: var(--font-script);
-            font-size: 3.5rem;
+            font-family: var(--font-serif);
+            font-size: 3rem;
             text-align: center;
             color: var(--primary-color);
             margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .sub-title {
+            text-align: center;
+            font-size: 1.2rem;
+            color: var(--accent-color);
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         .btn {
@@ -50,23 +62,26 @@
             padding: 12px 30px;
             background: var(--primary-color);
             color: var(--white);
-            border: none;
-            border-radius: 50px;
+            border: 1px solid var(--primary-color);
+            border-radius: 4px; /* Bo góc ít hơn để sang trọng hơn */
             cursor: pointer;
             font-size: 1.1rem;
             transition: all 0.3s ease;
             text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .btn:hover {
-            background: #b08968;
-            transform: translateY(-2px);
+            background: transparent;
+            color: var(--primary-color);
         }
 
         /* --- Header / Hero --- */
         header {
             height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1519225421980-715cb0202128?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            /* Bạn hãy cắt ảnh ở Trang 6 (cô dâu chú rể khiêu vũ) để làm nền nhé */
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://via.placeholder.com/1920x1080?text=Anh+Nen+Trang+6+PDF');
             background-size: cover;
             background-position: center;
             display: flex;
@@ -78,32 +93,85 @@
         }
 
         .hero-content h1 {
-            font-family: var(--font-script);
-            font-size: 4rem;
+            font-family: var(--font-serif);
+            font-size: 4.5rem;
             margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            color: var(--white);
         }
 
         .hero-content p {
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             margin-bottom: 20px;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
         }
 
         .hero-date {
-            font-size: 2rem;
-            font-weight: bold;
-            border-top: 2px solid var(--white);
-            border-bottom: 2px solid var(--white);
+            font-size: 1.8rem;
+            border-top: 1px solid var(--white);
+            border-bottom: 1px solid var(--white);
             display: inline-block;
-            padding: 10px 20px;
+            padding: 15px 30px;
             margin-top: 20px;
+            font-family: var(--font-serif);
+        }
+
+        /* --- Intro Quote --- */
+        #intro {
+            padding: 60px 0;
+            text-align: center;
+            background: var(--white);
+        }
+        #intro p {
+            font-size: 1.4rem;
+            font-style: italic;
+            font-family: var(--font-serif);
+            color: var(--primary-color);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* --- Family Section --- */
+        #family {
+            padding: 60px 0;
+            background-color: #f9f9f9;
+            text-align: center;
+        }
+
+        .family-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 50px;
+            margin-top: 30px;
+        }
+
+        .family-side h3 {
+            color: var(--accent-color);
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            font-family: var(--font-serif);
+        }
+
+        .parent-name {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .address {
+            font-size: 0.9rem;
+            color: #666;
+            font-style: italic;
         }
 
         /* --- Couple Section --- */
         #couple {
             padding: 80px 0;
             text-align: center;
+            background: var(--white);
         }
 
         .couple-wrapper {
@@ -111,72 +179,105 @@
             flex-wrap: wrap;
             justify-content: center;
             align-items: center;
-            gap: 40px;
+            gap: 60px;
             margin-top: 40px;
         }
 
         .person {
             flex: 1;
             min-width: 300px;
+            max-width: 400px;
         }
 
+        /* Ảnh tròn hoặc vuông bo góc tùy sở thích, ở đây để chữ nhật bo góc theo style hiện đại */
         .person img {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
+            width: 100%; 
+            height: 400px;
             object-fit: cover;
-            border: 5px solid var(--secondary-color);
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
             margin-bottom: 20px;
         }
 
         .person h3 {
-            font-size: 1.8rem;
+            font-family: var(--font-serif);
+            font-size: 2.2rem;
             color: var(--primary-color);
+            margin-bottom: 5px;
         }
 
-        .heart-icon {
+        .person p {
+            color: var(--accent-color);
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .couple-divider {
             font-size: 3rem;
-            color: #e63946;
-            animation: beat 1s infinite alternate;
-        }
-
-        @keyframes beat {
-            to { transform: scale(1.1); }
+            color: var(--accent-color);
+            font-family: var(--font-serif);
         }
 
         /* --- Event Info & Map --- */
         #event {
-            background-color: var(--secondary-color);
+            background-color: var(--primary-color); /* Nền xanh đậm */
+            color: var(--white);
             padding: 80px 0;
             text-align: center;
         }
 
         .event-card {
-            background: var(--white);
+            background: rgba(255, 255, 255, 0.05); /* Hiệu ứng kính mờ */
             padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            max-width: 800px;
+            border: 1px solid var(--accent-color);
+            border-radius: 4px;
+            max-width: 900px;
             margin: 0 auto;
         }
 
-        .event-details i {
-            color: var(--primary-color);
-            font-size: 1.5rem;
-            margin-right: 10px;
+        .event-card .section-title {
+            color: var(--accent-color);
+        }
+
+        .event-details {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .detail-item {
+            flex: 1;
+            min-width: 250px;
         }
         
-        .event-details p {
-            margin: 15px 0;
+        .detail-item i {
+            color: var(--accent-color);
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+        
+        .detail-item h4 {
             font-size: 1.2rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .detail-item p {
+            font-size: 1.1rem;
+            color: #ddd;
         }
 
         .map-responsive {
             margin-top: 30px;
             overflow: hidden;
-            padding-bottom: 56.25%;
+            padding-bottom: 50%;
             position: relative;
             height: 0;
+            border: 1px solid var(--accent-color);
         }
         
         .map-responsive iframe {
@@ -199,8 +300,8 @@
             margin: 0 auto;
             background: #fdfbf7;
             padding: 40px;
-            border-radius: 10px;
-            border: 1px solid var(--primary-color);
+            border-radius: 4px;
+            border: 2px solid var(--primary-color);
         }
 
         .form-group {
@@ -211,6 +312,7 @@
             display: block;
             margin-bottom: 8px;
             font-weight: 600;
+            color: var(--primary-color);
         }
 
         .form-group input, 
@@ -219,7 +321,7 @@
             width: 100%;
             padding: 12px;
             border: 1px solid #ddd;
-            border-radius: 5px;
+            border-radius: 4px;
             font-family: inherit;
         }
 
@@ -236,12 +338,15 @@
             color: var(--white);
             text-align: center;
             padding: 30px 0;
+            font-size: 0.9rem;
         }
 
         /* --- Responsive --- */
         @media (max-width: 768px) {
-            .section-title { font-size: 2.5rem; }
-            .hero-content h1 { font-size: 2.5rem; }
+            .hero-content h1 { font-size: 3rem; }
+            .section-title { font-size: 2.2rem; }
+            .couple-wrapper { gap: 30px; }
+            .person img { height: 300px; }
         }
     </style>
 </head>
@@ -249,35 +354,68 @@
 
     <header>
         <div class="hero-content">
-            <p>SAVE THE DATE</p>
-            <h1>Nguyễn Văn A & Trần Thị B</h1>
-            <div class="hero-date">01 . 05 . 2026</div>
+            <p>We Are Getting Married</p>
+            <h1>Thành Nhân <br>&<br> Tân Hoàng</h1>
+            <div class="hero-date">24 . 01 . 2026</div>
             <br><br>
-            <a href="#rsvp" class="btn">Xác nhận tham dự</a>
+            <a href="#rsvp" class="btn">Gửi lời chúc & Xác nhận</a>
         </div>
     </header>
+
+    <section id="intro">
+        <div class="container">
+            <p>“Chúng ta cảm ơn quá khứ, chúng ta trân trọng hiện tại và sẽ cùng nhau viết tiếp tương lai. <br>
+            Với tất cả lòng biết ơn, chúng mình bắt đầu một chương mới là vợ chồng, là gia đình và là NHÀ.”</p>
+            <div style="margin-top: 20px; font-weight: bold; color: var(--accent-color);">#YeuDuLonDeThanhNha</div>
+        </div>
+    </section>
+
+    <section id="family">
+        <div class="container">
+            <h2 class="section-title">Gia Đình Hai Bên</h2>
+            <div class="sub-title">Trân trọng báo tin lễ tân hôn của con chúng tôi</div>
+            
+            <div class="family-grid">
+                <div class="family-side">
+                    <h3>Nhà Trai</h3>
+                    <div class="parent-name">Ông Kim Văn Phúc</div>
+                    <div class="parent-name">Bà Nguyễn Phạm Vy Thuỷ</div>
+                    <div class="address">Cư Xá Thanh Đa, TP. Hồ Chí Minh</div>
+                </div>
+
+                <div class="family-side">
+                    <h3>Nhà Gái</h3>
+                    <div class="parent-name">Ông Trần Quốc Hùng</div>
+                    <div class="parent-name">Bà Trịnh Thị Liên</div>
+                    <div class="address">Phường Long Hưng, TP. Biên Hoà, Đồng Nai</div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <section id="couple">
         <div class="container">
             <h2 class="section-title">Cô Dâu & Chú Rể</h2>
-            <p>Tình yêu không phải là tìm thấy một người hoàn hảo, mà là học cách nhìn thấy những điều tuyệt vời từ một người không hoàn hảo.</p>
+            <p style="text-align: center;">"Từ trái tim này đến trái tim kia"</p>
             
             <div class="couple-wrapper">
                 <div class="person">
-                    <img src="https://via.placeholder.com/200x200?text=Groom" alt="Chú Rể">
-                    <h3>Nguyễn Văn A</h3>
-                    <p>Chàng trai IT khô khan nhưng chân thành.</p>
+                    <img src="https://via.placeholder.com/400x500?text=Anh+Chu+Re+(Trang+4)" alt="Thành Nhân">
+                    <h3>Thành Nhân</h3>
+                    <p>Chú Rể</p>
                 </div>
                 
-                <div class="heart-icon">
-                    <i class="fas fa-heart"></i>
-                </div>
+                <div class="couple-divider">&</div>
 
                 <div class="person">
-                    <img src="https://via.placeholder.com/200x200?text=Bride" alt="Cô Dâu">
-                    <h3>Trần Thị B</h3>
-                    <p>Cô gái Marketing năng động và dịu dàng.</p>
+                    <img src="https://via.placeholder.com/400x500?text=Anh+Co+Dau+(Trang+4)" alt="Tân Hoàng">
+                    <h3>Tân Hoàng</h3>
+                    <p>Cô Dâu</p>
                 </div>
+            </div>
+            
+            <div style="margin-top: 50px; text-align: center;">
+                 <img src="https://via.placeholder.com/800x400?text=Anh+Cap+Doi+Ao+Dai+Do+(Trang+5)" style="max-width: 100%; border-radius: 10px;" alt="Happy Couple">
             </div>
         </div>
     </section>
@@ -286,14 +424,28 @@
         <div class="container">
             <div class="event-card">
                 <h2 class="section-title">Tiệc Cưới</h2>
+                <div class="sub-title">Trân trọng kính mời quý khách đến chung vui</div>
+                
                 <div class="event-details">
-                    <p><i class="far fa-clock"></i> <strong>Thời gian:</strong> 11:00 AM, Thứ Sáu, 01/05/2026</p>
-                    <p><i class="fas fa-map-marker-alt"></i> <strong>Địa điểm:</strong> Trung tâm hội nghị White Palace</p>
-                    <p>194 Hoàng Văn Thụ, Phường 9, Phú Nhuận, TP.HCM</p>
+                    <div class="detail-item">
+                        <i class="far fa-clock"></i>
+                        <h4>Thời gian</h4>
+                        <p><strong>11:00 AM</strong></p>
+                        <p>Thứ Bảy, 24/01/2026</p>
+                        <p>(Nhằm ngày 06 tháng Chạp năm Ất Tỵ)</p>
+                    </div>
+
+                    <div class="detail-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <h4>Địa điểm</h4>
+                        <p><strong>WHITE PALACE</strong></p>
+                        <p>Sảnh A4</p>
+                        <p>588 Phạm Văn Đồng, Hiệp Bình Chánh, Thủ Đức, TP.HCM</p>
+                    </div>
                 </div>
                 
                 <div class="map-responsive">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.166649726887!2d106.67383631533425!3d10.798544261738222!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317528d6c744c8bf%3A0x62c040529d300dc!2sWhite%20Palace!5e0!3m2!1svi!2s!4v1633420000000!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3918.924945868285!2d106.71887331533425!3d10.81705626139828!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3175289999999999%3A0x2a1b1b1b1b1b1b1b!2sWhite%20Palace%20Pham%20Van%20Dong!5e0!3m2!1sen!2s!4v1640000000000!5m2!1sen!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                 </div>
             </div>
         </div>
@@ -301,8 +453,8 @@
 
     <section id="rsvp">
         <div class="container">
-            <h2 class="section-title">Xác Nhận Tham Dự</h2>
-            <p style="text-align: center; margin-bottom: 30px;">Sự hiện diện của bạn là niềm vinh hạnh của chúng tôi.</p>
+            <h2 class="section-title">Sổ Lưu Bút Online</h2>
+            <p style="text-align: center; margin-bottom: 30px;">Sự hiện diện của Quý vị là niềm vinh hạnh cho gia đình chúng tôi.</p>
             
             <div class="rsvp-form">
                 <form id="weddingRsvpForm">
@@ -314,25 +466,15 @@
                     <div class="form-group">
                         <label>Bạn sẽ tham dự chứ?</label>
                         <select id="attendance" required>
-                            <option value="yes">Chắc chắn rồi!</option>
+                            <option value="yes">Chắc chắn tham dự</option>
                             <option value="maybe">Tôi sẽ trả lời sau</option>
-                            <option value="no">Tiếc quá, tôi bận mất rồi</option>
+                            <option value="no">Rất tiếc, tôi bận mất rồi</option>
                         </select>
                     </div>
 
                     <div class="form-group">
-                        <label>Số người đi cùng</label>
-                        <select id="guestCount">
-                            <option value="0">Đi một mình</option>
-                            <option value="1">Đi cùng 1 người</option>
-                            <option value="2">Đi cùng 2 người</option>
-                            <option value="3">Đi cùng 3 người</option>
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Lời chúc (tùy chọn)</label>
-                        <textarea id="message" rows="3" placeholder="Gửi lời chúc đến cô dâu chú rể..."></textarea>
+                        <label>Lời chúc đến Thành Nhân & Tân Hoàng</label>
+                        <textarea id="message" rows="4" placeholder="Gửi những lời chúc tốt đẹp nhất..."></textarea>
                     </div>
 
                     <button type="submit" class="btn" style="width: 100%;">Gửi xác nhận</button>
@@ -342,14 +484,14 @@
     </section>
 
     <footer>
-        <p>Made with <i class="fas fa-heart" style="color: red;"></i> for the happy couple.</p>
+        <p>Made with <i class="fas fa-heart" style="color: #c5a059;"></i> | Thành Nhân & Tân Hoàng 2026</p>
     </footer>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-        // Cấu hình Firebase của bạn
+        // Cấu hình Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyCzWjfcD5Dgq7V-i2izb9tKLR6QM6qWPQo",
             authDomain: "tavietnam-78ae8.firebaseapp.com",
@@ -359,11 +501,9 @@
             appId: "1:670121705534:web:1027ad98550573ad37116f"
         };
 
-        // Khởi tạo Firebase
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // Xử lý gửi form
         document.getElementById('weddingRsvpForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             
@@ -374,19 +514,18 @@
 
             const name = document.getElementById('guestName').value;
             const attendance = document.getElementById('attendance').value;
-            const guestCount = document.getElementById('guestCount').value;
             const message = document.getElementById('message').value;
 
             try {
                 await addDoc(collection(db, "wedding_rsvps"), {
                     name: name,
                     attendance: attendance,
-                    plus_one: parseInt(guestCount),
                     message: message,
+                    wedding_of: "ThanhNhan_TanHoang", // Phân biệt nếu bạn dùng chung database cho việc khác
                     created_at: serverTimestamp()
                 });
 
-                alert("Cảm ơn bạn! Thông tin đã được gửi thành công.");
+                alert("Cảm ơn bạn! Lời chúc của bạn đã được gửi đến cô dâu chú rể.");
                 document.getElementById('weddingRsvpForm').reset();
             } catch (error) {
                 console.error("Error adding document: ", error);
