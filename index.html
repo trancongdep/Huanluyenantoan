@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thiệp Cưới: Chú Rể & Cô Dâu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #d4a373; /* Gold/Brown tone */
+            --secondary-color: #fae1dd; /* Soft Pink */
+            --text-color: #4a4e69;
+            --white: #ffffff;
+            --font-main: 'Quicksand', sans-serif;
+            --font-script: 'Dancing Script', cursive;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-main);
+            color: var(--text-color);
+            background-color: #fdfbf7;
+            line-height: 1.6;
+        }
+
+        /* --- Utilities --- */
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .section-title {
+            font-family: var(--font-script);
+            font-size: 3.5rem;
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: var(--primary-color);
+            color: var(--white);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background: #b08968;
+            transform: translateY(-2px);
+        }
+
+        /* --- Header / Hero --- */
+        header {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://images.unsplash.com/photo-1519225421980-715cb0202128?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+        }
+
+        .hero-content h1 {
+            font-family: var(--font-script);
+            font-size: 4rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .hero-date {
+            font-size: 2rem;
+            font-weight: bold;
+            border-top: 2px solid var(--white);
+            border-bottom: 2px solid var(--white);
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+        }
+
+        /* --- Couple Section --- */
+        #couple {
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .couple-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .person {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .person img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--secondary-color);
+            margin-bottom: 20px;
+        }
+
+        .person h3 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+        }
+
+        .heart-icon {
+            font-size: 3rem;
+            color: #e63946;
+            animation: beat 1s infinite alternate;
+        }
+
+        @keyframes beat {
+            to { transform: scale(1.1); }
+        }
+
+        /* --- Event Info & Map --- */
+        #event {
+            background-color: var(--secondary-color);
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .event-card {
+            background: var(--white);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .event-details i {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-right: 10px;
+        }
+        
+        .event-details p {
+            margin: 15px 0;
+            font-size: 1.2rem;
+        }
+
+        .map-responsive {
+            margin-top: 30px;
+            overflow: hidden;
+            padding-bottom: 56.25%;
+            position: relative;
+            height: 0;
+        }
+        
+        .map-responsive iframe {
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            border: 0;
+        }
+
+        /* --- RSVP Form --- */
+        #rsvp {
+            padding: 80px 0;
+            background: #fff;
+        }
+
+        .rsvp-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fdfbf7;
+            padding: 40px;
+            border-radius: 10px;
+            border: 1px solid var(--primary-color);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-group input, 
+        .form-group select, 
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        /* --- Footer --- */
+        footer {
+            background: var(--text-color);
+            color: var(--white);
+            text-align: center;
+            padding: 30px 0;
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 768px) {
+            .section-title { font-size: 2.5rem; }
+            .hero-content h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="hero-content">
+            <p>SAVE THE DATE</p>
+            <h1>Nguyễn Văn A & Trần Thị B</h1>
+            <div class="hero-date">01 . 05 . 2026</div>
+            <br><br>
+            <a href="#rsvp" class="btn">Xác nhận tham dự</a>
+        </div>
+    </header>
+
+    <section id="couple">
+        <div class="container">
+            <h2 class="section-title">Cô Dâu & Chú Rể</h2>
+            <p>Tình yêu không phải là tìm thấy một người hoàn hảo, mà là học cách nhìn thấy những điều tuyệt vời từ một người không hoàn hảo.</p>
+            
+            <div class="couple-wrapper">
+                <div class="person">
+                    <img src="https://via.placeholder.com/200x200?text=Groom" alt="Chú Rể">
+                    <h3>Nguyễn Văn A</h3>
+                    <p>Chàng trai IT khô khan nhưng chân thành.</p>
+                </div>
+                
+                <div class="heart-icon">
+                    <i class="fas fa-heart"></i>
+                </div>
+
+                <div class="person">
+                    <img src="https://via.placeholder.com/200x200?text=Bride" alt="Cô Dâu">
+                    <h3>Trần Thị B</h3>
+                    <p>Cô gái Marketing năng động và dịu dàng.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="event">
+        <div class="container">
+            <div class="event-card">
+                <h2 class="section-title">Tiệc Cưới</h2>
+                <div class="event-details">
+                    <p><i class="far fa-clock"></i> <strong>Thời gian:</strong> 11:00 AM, Thứ Sáu, 01/05/2026</p>
+                    <p><i class="fas fa-map-marker-alt"></i> <strong>Địa điểm:</strong> Trung tâm hội nghị White Palace</p>
+                    <p>194 Hoàng Văn Thụ, Phường 9, Phú Nhuận, TP.HCM</p>
+                </div>
+                
+                <div class="map-responsive">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.166649726887!2d106.67383631533425!3d10.798544261738222!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317528d6c744c8bf%3A0x62c040529d300dc!2sWhite%20Palace!5e0!3m2!1svi!2s!4v1633420000000!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="rsvp">
+        <div class="container">
+            <h2 class="section-title">Xác Nhận Tham Dự</h2>
+            <p style="text-align: center; margin-bottom: 30px;">Sự hiện diện của bạn là niềm vinh hạnh của chúng tôi.</p>
+            
+            <div class="rsvp-form">
+                <form id="weddingRsvpForm">
+                    <div class="form-group">
+                        <label>Tên của bạn</label>
+                        <input type="text" id="guestName" required placeholder="Nhập tên của bạn...">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Bạn sẽ tham dự chứ?</label>
+                        <select id="attendance" required>
+                            <option value="yes">Chắc chắn rồi!</option>
+                            <option value="maybe">Tôi sẽ trả lời sau</option>
+                            <option value="no">Tiếc quá, tôi bận mất rồi</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Số người đi cùng</label>
+                        <select id="guestCount">
+                            <option value="0">Đi một mình</option>
+                            <option value="1">Đi cùng 1 người</option>
+                            <option value="2">Đi cùng 2 người</option>
+                            <option value="3">Đi cùng 3 người</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Lời chúc (tùy chọn)</label>
+                        <textarea id="message" rows="3" placeholder="Gửi lời chúc đến cô dâu chú rể..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn" style="width: 100%;">Gửi xác nhận</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>Made with <i class="fas fa-heart" style="color: red;"></i> for the happy couple.</p>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // Cấu hình Firebase của bạn
+        const firebaseConfig = {
+            apiKey: "AIzaSyCzWjfcD5Dgq7V-i2izb9tKLR6QM6qWPQo",
+            authDomain: "tavietnam-78ae8.firebaseapp.com",
+            projectId: "tavietnam-78ae8",
+            storageBucket: "tavietnam-78ae8.firebasestorage.app",
+            messagingSenderId: "670121705534",
+            appId: "1:670121705534:web:1027ad98550573ad37116f"
+        };
+
+        // Khởi tạo Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Xử lý gửi form
+        document.getElementById('weddingRsvpForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const submitBtn = e.target.querySelector('button');
+            const originalBtnText = submitBtn.innerText;
+            submitBtn.innerText = 'Đang gửi...';
+            submitBtn.disabled = true;
+
+            const name = document.getElementById('guestName').value;
+            const attendance = document.getElementById('attendance').value;
+            const guestCount = document.getElementById('guestCount').value;
+            const message = document.getElementById('message').value;
+
+            try {
+                await addDoc(collection(db, "wedding_rsvps"), {
+                    name: name,
+                    attendance: attendance,
+                    plus_one: parseInt(guestCount),
+                    message: message,
+                    created_at: serverTimestamp()
+                });
+
+                alert("Cảm ơn bạn! Thông tin đã được gửi thành công.");
+                document.getElementById('weddingRsvpForm').reset();
+            } catch (error) {
+                console.error("Error adding document: ", error);
+                alert("Có lỗi xảy ra, vui lòng thử lại sau.");
+            } finally {
+                submitBtn.innerText = originalBtnText;
+                submitBtn.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
