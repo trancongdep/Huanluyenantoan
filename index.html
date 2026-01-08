@@ -9,7 +9,6 @@
     
     <style>
         :root {
-            /* Màu chủ đạo lấy từ file thiết kế */
             --bg-color: #3a4a3b; /* Xanh rêu đậm */
             --gold-color: #c5a059; /* Vàng đồng */
             --light-text: #f4f4f4;
@@ -27,6 +26,32 @@
             color: var(--light-text);
             font-family: 'Quicksand', sans-serif;
             overflow-x: hidden;
+            position: relative; /* Để chứa các hiệu ứng tuyệt đối */
+        }
+
+        /* --- Heart Animation Effect --- */
+        .heart-effect {
+            position: fixed;
+            bottom: -50px;
+            color: rgba(197, 160, 89, 0.6); /* Màu vàng đồng mờ */
+            font-size: 20px;
+            z-index: 999; /* Nằm trên nền nhưng dưới các nút bấm quan trọng */
+            pointer-events: none; /* Không chặn click chuột của người dùng */
+            animation: floatUp linear forwards;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) scale(1) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-110vh) scale(1.5) rotate(360deg);
+                opacity: 0;
+            }
         }
 
         /* --- Music Button --- */
@@ -45,27 +70,35 @@
             cursor: pointer;
             box-shadow: 0 4px 10px rgba(0,0,0,0.3);
             border: 2px solid #fff;
-            animation: spin 4s linear infinite;
-            animation-play-state: paused;
+            color: #fff;
         }
         
         .music-btn.playing {
-            animation-play-state: running;
+            animation: pulse 2s infinite;
+            background: #fff;
+            color: var(--gold-color);
+            border-color: var(--gold-color);
         }
 
-        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 255, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+        }
 
         /* --- Main Invitation Images --- */
         .invitation-container {
-            max-width: 600px; /* Chiều rộng tối ưu cho hiển thị dạng dọc */
+            max-width: 600px;
             margin: 0 auto;
             background: var(--bg-color);
             box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            position: relative;
+            z-index: 2; /* Nổi lên trên hiệu ứng tim */
         }
 
         .invitation-page {
             width: 100%;
-            display: block; /* Loại bỏ khoảng trắng dưới ảnh */
+            display: block;
             height: auto;
         }
 
@@ -189,19 +222,20 @@
 </head>
 <body>
 
+    <audio id="bgMusic" loop>
+        <source src="https://cdn.pixabay.com/download/audio/2022/02/10/audio_fc8c857778.mp3?filename=piano-moment-14360.mp3" type="audio/mpeg">
+    </audio>
+    
     <div class="music-btn" id="musicBtn" title="Bật/Tắt nhạc">
         <i class="fas fa-music"></i>
     </div>
-    <audio id="bgMusic" loop>
-        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
-    </audio>
 
     <div class="invitation-container">
-        <img src="p1.jpg" alt="Trang 1" class="invitation-page" onerror="this.src='https://via.placeholder.com/600x800/3a4a3b/c5a059?text=Anh+Trang+1+(Bia)'">
-        <img src="p2.jpg" alt="Trang 2" class="invitation-page" onerror="this.src='https://via.placeholder.com/600x800/3a4a3b/c5a059?text=Anh+Trang+2+(Intro)'">
-        <img src="p3.jpg" alt="Trang 3" class="invitation-page" onerror="this.src='https://via.placeholder.com/600x800/3a4a3b/c5a059?text=Anh+Trang+3+(Ten+CDCR)'">
-        <img src="p4.jpg" alt="Trang 4" class="invitation-page" onerror="this.src='https://via.placeholder.com/600x800/3a4a3b/c5a059?text=Anh+Trang+4+(Hinh+Cuoi)'">
-        <img src="p5.jpg" alt="Trang 5" class="invitation-page" onerror="this.src='https://via.placeholder.com/600x800/3a4a3b/c5a059?text=Anh+Trang+5+(Thong+Tin)'">
+        <img src="p1.jpg" alt="Trang 1" class="invitation-page" onerror="this.src='https://via.placeholder.com/600x800/3a4a3b/c5a059?text=Bia+Thiep+(p1.jpg)'">
+        <img src="p2.jpg" alt="Trang 2" class="invitation-page" onerror="this.src='https://via.placeholder.com/600x800/3a4a3b/c5a059?text=Intro+(p2.jpg)'">
+        <img src="p3.jpg" alt="Trang 3" class="invitation-page" onerror="this.src='https://via.placeholder.com/600x800/3a4a3b/c5a059?text=Ten+CDCR+(p3.jpg)'">
+        <img src="p4.jpg" alt="Trang 4" class="invitation-page" onerror="this.src='https://via.placeholder.com/600x800/3a4a3b/c5a059?text=Anh+Cuoi+(p4.jpg)'">
+        <img src="p5.jpg" alt="Trang 5" class="invitation-page" onerror="this.src='https://via.placeholder.com/600x800/3a4a3b/c5a059?text=Thong+Tin+(p5.jpg)'">
         
         <div class="online-features" id="map-section">
             <h2 class="section-title">Đường Đến Hôn Trường</h2>
@@ -221,7 +255,7 @@
             </a>
         </div>
 
-        <img src="p6.jpg" alt="Trang 6" class="invitation-page" onerror="this.src='https://via.placeholder.com/600x800/3a4a3b/c5a059?text=Anh+Trang+6+(Loi+Dan)'">
+        <img src="p6.jpg" alt="Trang 6" class="invitation-page" onerror="this.src='https://via.placeholder.com/600x800/3a4a3b/c5a059?text=Loi+Dan+(p6.jpg)'">
 
         <div class="online-features" id="rsvp-section">
             <h2 class="section-title">Xác Nhận Tham Dự</h2>
@@ -262,7 +296,7 @@
             </div>
         </div>
 
-        <img src="p7.jpg" alt="Trang 7" class="invitation-page" onerror="this.src='https://via.placeholder.com/600x800/3a4a3b/c5a059?text=Anh+Trang+7+(Loi+Cam+On)'">
+        <img src="p7.jpg" alt="Trang 7" class="invitation-page" onerror="this.src='https://via.placeholder.com/600x800/3a4a3b/c5a059?text=Cam+On+(p7.jpg)'">
 
         <footer>
             Thành Nhân & Tân Hoàng 24.01.2026
@@ -286,7 +320,7 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        // Xử lý Form
+        // --- 1. Xử lý Form RSVP ---
         document.getElementById('weddingRsvpForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             
@@ -321,31 +355,68 @@
             }
         });
 
-        // Xử lý Nhạc nền
+        // --- 2. Xử lý Nhạc & Hiệu ứng ---
         const musicBtn = document.getElementById('musicBtn');
         const bgMusic = document.getElementById('bgMusic');
         let isPlaying = false;
 
-        musicBtn.addEventListener('click', () => {
+        function toggleMusic() {
             if (isPlaying) {
                 bgMusic.pause();
                 musicBtn.classList.remove('playing');
                 musicBtn.innerHTML = '<i class="fas fa-music"></i>';
             } else {
-                bgMusic.play();
-                musicBtn.classList.add('playing');
-                musicBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                bgMusic.play().then(() => {
+                    musicBtn.classList.add('playing');
+                    musicBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                }).catch(e => console.log("Chưa thể tự động phát nhạc: " + e));
             }
             isPlaying = !isPlaying;
-        });
-        
-        // Tự động nhắc bật nhạc khi người dùng tương tác lần đầu với trang (do chính sách trình duyệt)
+        }
+
+        musicBtn.addEventListener('click', toggleMusic);
+
+        // Thử tự động phát khi người dùng tương tác lần đầu
         document.body.addEventListener('click', function() {
-            if(!isPlaying) {
-                // Có thể bỏ comment dòng dưới nếu muốn tự động chơi nhạc khi chạm vào màn hình
-                // bgMusic.play(); isPlaying = true; musicBtn.classList.add('playing');
+            if (!isPlaying) {
+                toggleMusic();
             }
         }, { once: true });
+
+        // --- 3. Tạo hiệu ứng Tim Bay (Flying Hearts) ---
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart-effect');
+            
+            // Random icon (Tim đặc hoặc Tim rỗng)
+            const icons = ['fas fa-heart', 'far fa-heart'];
+            const randomIcon = icons[Math.floor(Math.random() * icons.length)];
+            heart.innerHTML = `<i class="${randomIcon}"></i>`;
+            
+            // Vị trí ngẫu nhiên theo chiều ngang (tránh che khu vực giữa quá nhiều)
+            // Chúng ta ưu tiên tim bay ở 2 bên lề
+            let leftPos = Math.random() * 100; 
+            heart.style.left = leftPos + 'vw';
+            
+            // Kích thước ngẫu nhiên
+            const size = Math.random() * 20 + 10; // 10px - 30px
+            heart.style.fontSize = size + 'px';
+            
+            // Thời gian bay ngẫu nhiên
+            const duration = Math.random() * 3 + 4; // 4s - 7s
+            heart.style.animationDuration = duration + 's';
+            
+            document.body.appendChild(heart);
+            
+            // Xóa element sau khi bay xong
+            setTimeout(() => {
+                heart.remove();
+            }, duration * 1000);
+        }
+
+        // Tạo tim mỗi 400ms
+        setInterval(createHeart, 400);
+
     </script>
 </body>
 </html>
